@@ -1,0 +1,25 @@
+#include <SoftwareSerial.h>
+
+SoftwareSerial bt(10,11);  // RX, TX  (Arduino RX=2, TX=3)
+
+void setup() {
+  Serial.begin(9600);     // Serial Monitor
+  bt.begin(9600);         // Bluetooth normal mode baud (must match AT+UART)
+  Serial.println("Ready");
+}
+
+void loop() {
+
+  // Bluetooth → Serial Monitor
+  if (bt.available()) {
+    Serial.write(bt.read());
+  }
+
+  // Serial Monitor → Bluetooth
+  if (Serial.available()) {
+    bt.write(Serial.read());
+  }
+
+}
+
+  
