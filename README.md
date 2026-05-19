@@ -1,0 +1,2 @@
+# Wireless-Accessory-Based-Silent-Emergency-Alert-Device-for-Women-and-Vulnerable-Users
+The present invention discloses a wearable accessory-based emergency alert device that enables users to silently send emergency messages through a hidden trigger mechanism. Upon activation, a wireless signal is sent to a main processing unit, where a microcontroller activates a GSM module to transmit predefined emergency alerts to stored contacts
