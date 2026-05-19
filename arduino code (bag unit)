@@ -1,0 +1,63 @@
+ 
+#include <SoftwareSerial.h>
+
+SoftwareSerial bt(2,3);
+SoftwareSerial gsm(11,10);
+
+String data="";
+
+void setup()
+{
+  Serial.begin(9600);
+  bt.begin(9600);
+  gsm.begin(9600);
+
+  Serial.println("System Ready");
+  delay(5000);
+}
+
+void loop()
+{
+  bt.listen();
+
+  if(bt.available())
+  {
+    data = bt.readString();
+    data.trim();
+
+    Serial.println(data);
+
+    if(data.indexOf("ALERT") >= 0)
+    {
+      Serial.println("Sending SMS...");
+      sendSMS();
+      delay(10000); 
+    }
+  }
+}
+
+void sendSMS()
+{
+  gsm.listen();
+
+  gsm.println("AT");
+  delay(1000);
+
+  gsm.println("AT+CMGF=1");
+  delay(1000);
+
+  gsm.println("AT+CMGS=\"+919367757301\"");
+  delay(2000);
+
+  gsm.print("Emergency Alert Triggered!");
+
+  delay(500);
+
+  gsm.write(26);
+
+  delay(7000);
+
+  Serial.println("SMS SENT");
+
+  bt.listen();
+}
